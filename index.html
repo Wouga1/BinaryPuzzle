@@ -25,16 +25,18 @@
 
         function LoadGrid(G) {      
 			var GridCol = [];
+			var arr2D = "";
 			Grid = [];
 			
 			for (let j = 0; j < Row; j++) { //Row loop - like the "y" coordinates
                 for (let i = 0; i < Col; i++) { //Column loop - like the "x" coordinates
                     GridCol.push(G[j * Col + i]); // load the column elements into this temporary array
                 }
+				arr2D = arr2D + "Grid[" + j + "] = [" + GridCol + "]" + "\n";
                 Grid.push(GridCol); // push a column array for each row
                 GridCol = []; // clear this array ready for the next row
             }
-            document.getElementById('arrayView2D').value = Grid;
+            document.getElementById('arrayView2D').value = arr2D;
             document.getElementById('arrayViewCell').value = Grid[4][3]; //Row 5, Column 4
 			DisplayGrid(Grid);
 		}
@@ -64,7 +66,8 @@
 			return false;
         }
         function SolveNumberPairs() {
-            window.alert('SolveNumberPairs has not been coded yet');
+            SolveRowPairs();
+			SolveColPairs();
 		}
 		function SolveRowPairs() {
 			GridSize = 6;
@@ -80,7 +83,7 @@
 					}
 				}
 			}
-			document.getElementById('arrayView2D').value = Grid;
+			//document.getElementById('arrayView2D').value = Grid;
             document.getElementById('arrayViewCell').value = Grid[4][3]; //Row 5, Column 4
 			DisplayGrid(Grid);
         }
@@ -98,7 +101,7 @@
 					}
 				}
 			}
-			document.getElementById('arrayView2D').value = Grid;
+			//document.getElementById('arrayView2D').value = Grid;
             document.getElementById('arrayViewCell').value = Grid[4][3]; //Row 5, Column 4
 			DisplayGrid(Grid);
         }
@@ -211,7 +214,7 @@
 		</table>
         <br />
 		View of the 2D array:<br />
-        <textarea id="arrayView2D" cols="30" rows="5"></textarea><br />
+        <textarea id="arrayView2D" cols="30" rows="7"></textarea><br />
         <br />
         View of 1 element:<br />
         <textarea id="arrayViewCell" cols="30" rows="2"></textarea>
