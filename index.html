@@ -19,12 +19,13 @@
 		var G12 = [0, null, null, null, null, null, null, 1, 1, null, null, null, null, null, 1, null, null, null, null, null, null, 0, null, null, 0, null, null, 1, null, null, null, null, null, null, null, null];
 		var G13 = [null, null, null, 1, null, null, null, null, null, null, null, 0, null, null, null, null, 0, 0, null, null, null, null, 1, null, 1, null, null, null, null, null, null, 0, null, 0, null, 0];
 		var GT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36];
+		var Grid = [];
 
         function LoadGrid(G) {      
  			var Row = 6;
 			var Col = 6;
 			var GridCol = [];
-			var Grid = [];
+			Grid = [];
 			
 			for (let j = 0; j < Row; j++) { //Row loop - like the "y" coordinates
                 for (let i = 0; i < Col; i++) { //Column loop - like the "x" coordinates
@@ -44,10 +45,21 @@
         }
 		
 		function BinaryPuzzleSolver() {
-            window.alert('BinaryPuzzleSolver has not been coded yet');
+            let i = 0;
+			Solved = false;
+			while (i < 3) {
+				//SolvePuzzle(); //This needs a parameter to work
+				window.alert('SolvePuzzle call number ' + i + '.');
+				i++;
+			}
         }
-        function SolvePuzzle() {
-            window.alert('SolvePuzzle has not been coded yet');
+        function SolvePuzzle(G2D) {
+			if (G2D[0][1] == 1) {
+				window.alert('Sub "SolvePuzzle" TEST MSG ONLY - 1 in row 1 col 2 - "solved"');
+				return true;
+			}
+            window.alert('Sub "SolvePuzzle" TEST MSG ONLY - "NOT solved yet"!');
+			return false;
         }
         function SolveNumberPairs() {
             window.alert('SolveNumberPairs has not been coded yet');
@@ -109,7 +121,7 @@
         </select>
 		<br />
 		<input type="button" value="Solve repeat" onClick="BinaryPuzzleSolver()" />&nbsp;&nbsp;
-		<input type="button" value="Solve once" onClick="SolvePuzzle()" />&nbsp;&nbsp;<br />
+		<input type="button" value="Solve once" onClick="SolvePuzzle(Grid)" />&nbsp;&nbsp;<br />
 		<input type="button" value="Pairs" onClick="SolveNumberPairs()" />&nbsp;
 		<input type="button" value="RowPairs" onClick="SolveRowPairs()" />&nbsp;
 		<input type="button" value="ColPairs" onClick="SolveColPairs()" />&nbsp;
