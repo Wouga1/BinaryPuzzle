@@ -18,7 +18,7 @@
 		var G11 = [null, 1, null, 1, null, 1, null, null, null, null, null, null, 0, 0, null, null, null, null, null, null, null, null, 1, null, 0, null, 1, 0, null, null, null, 1, null, null, null, null];
 		var G12 = [0, null, null, null, null, null, null, 1, 1, null, null, null, null, null, 1, null, null, null, null, null, null, 0, null, null, 0, null, null, 1, null, null, null, null, null, null, null, null];
 		var G13 = [null, null, null, 1, null, null, null, null, null, null, null, 0, null, null, null, null, 0, 0, null, null, null, null, 1, null, 1, null, null, null, null, null, null, 0, null, 0, null, 0];
-		var GT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36];
+		//var GT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36];
 		var Grid = [];
 		var GridSize = 6;
 
@@ -81,8 +81,6 @@
 					}
 				}
 			}
-			//document.getElementById('arrayView2D').value = Grid;
-            document.getElementById('arrayViewCell').value = Grid[4][3]; //Row 5, Column 4
 			DisplayGrid(Grid);
         }
 		function SolveColPairs() {
@@ -98,8 +96,6 @@
 					}
 				}
 			}
-			//document.getElementById('arrayView2D').value = Grid;
-            document.getElementById('arrayViewCell').value = Grid[4][3]; //Row 5, Column 4
 			DisplayGrid(Grid);
         }
         function SolveNumberTrios() {
@@ -120,7 +116,59 @@
 			DisplayGrid(Grid);
         }
         function CompleteRowsCols() {
-            window.alert('CompleteRowsCols has not been coded yet');
+            let tot0 = 0;
+			let tot1 = 0;
+			for (let Row = 0; Row < GridSize; Row++) {
+				for (let Col = 0; Col < GridSize; Col++) {
+					if (Grid[Row][Col] == 0) {
+						tot0 += 1
+					} 
+					else if (Grid[Row][Col] == 1) {
+						tot1 += 1
+					}
+				}
+				for (let Col = 0; Col < GridSize; Col++) {
+					if (Grid[Row][Col] == null && tot0 == 3) {
+						Grid[Row][Col] = 1;
+					} 
+					else if (Grid[Row][Col] == null && tot1 == 3) {
+						Grid[Row][Col] = 0;
+					}
+				}
+				tot0 = 0;
+				tot1 = 0;
+			}
+			let colComplete = 0;
+			for (let Col = 0; Col < GridSize; Col++) {
+				for (let Row = 0; Row < GridSize; Row++) {
+					if (Grid[Row][Col] == 0) {
+						tot0 += 1
+					} 
+					else if (Grid[Row][Col] == 1) {
+						tot1 += 1
+					}
+				}
+				for (let Row = 0; Row < GridSize; Row++) {
+					if (Grid[Row][Col] == null && tot0 == 3) {
+						Grid[Row][Col] = 1;
+						tot1 += 1;
+					} 
+					else if (Grid[Row][Col] == null && tot1 == 3) {
+						Grid[Row][Col] = 0;
+						tot0 += 1;
+					}
+				}
+				if (tot0 == 3 && tot1 == 3) {
+					colComplete += 1;
+				}
+				tot0 = 0;
+				tot1 = 0;
+			}
+			DisplayGrid(Grid);
+			document.getElementById('arrayViewCell').value = colComplete;
+			if (colComplete == GridSize) {
+				return true;
+			}
         }
     </script>
 	<style type="text/css">
@@ -149,8 +197,7 @@
         <h2>No frills with the layout</h2>
 		<p>Some text</p>
 		<select id="cboPuzNo" onchange="LoadGrid(eval(value))">
-        <!--<select id="cboPuzNo">-->
-            <option value="GT">Test 1-36</option>
+            <!--<option value="GT">Test 1-36</option>-->
             <option value="G01">Example in Q</option>
             <option value="G02">Game 2</option>
             <option value="G03">Game 3</option>
@@ -227,7 +274,7 @@
 		View of the 2D array:<br />
         <textarea id="arrayView2D" cols="30" rows="7"></textarea><br />
         <br />
-        View of 1 element:<br />
+        View the number of complete columns:<br />
         <textarea id="arrayViewCell" cols="30" rows="2"></textarea>
         <br />
     </form>
