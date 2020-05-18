@@ -57,12 +57,14 @@
 			}
         }
         function SolvePuzzle(G2D) {
-			if (G2D[0][1] == 1) {
-				window.alert('Sub "SolvePuzzle" TEST MSG ONLY - 1 in row 1 col 2 - "solved"');
+			SolveNumberPairs();
+			SolveNumberTrios();
+			if (CompleteRowsCols()) {
 				return true;
 			}
-            window.alert('Sub "SolvePuzzle" TEST MSG ONLY - "NOT solved yet"!');
-			return false;
+			else {
+				return false;
+			}
         }
         function SolveNumberPairs() {
             SolveRowPairs();
