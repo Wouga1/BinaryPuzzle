@@ -22,7 +22,8 @@
 		var Grid = [];
 		var GridSize = 6;
 
-        function LoadGrid(G) {      
+        function LoadGrid() {      
+			var G = eval(document.getElementById("cboPuzNo").value);
 			var GridCol = [];
 			var arr2D = "";
 			Grid = [];
@@ -216,7 +217,7 @@
         <h1>6x6 Binary Puzzle Game</h1>
         <h2>No frills with the layout</h2>
 		<p>Some text</p>
-		<select id="cboPuzNo" onchange="LoadGrid(eval(value))">
+		<select id="cboPuzNo" onchange="LoadGrid()">
             <!--<option value="GT">Test 1-36</option>-->
             <option value="G01">Example in Q</option>
             <option value="G02">Game 2</option>
@@ -232,7 +233,8 @@
             <option value="G12">Game 12</option>
             <option value="G13">Game 13</option>
 			<option value="GNull">Empty</option>
-        </select>
+        </select>&nbsp;&nbsp;
+		<input type="button" value="Reload grid" onclick="LoadGrid()">
 		<br />
 		<input type="button" value="Solve repeat" onClick="BinaryPuzzleSolver()" />&nbsp;&nbsp;
 		<input type="button" value="Solve once" onClick="SolvePuzzle(Grid)" />&nbsp;&nbsp;<br />
