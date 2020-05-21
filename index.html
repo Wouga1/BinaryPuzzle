@@ -18,7 +18,7 @@
 		var G11 = [null, 1, null, 1, null, 1, null, null, null, null, null, null, 0, 0, null, null, null, null, null, null, null, null, 1, null, 0, null, 1, 0, null, null, null, 1, null, null, null, null];
 		var G12 = [0, null, null, null, null, null, null, 1, 1, null, null, null, null, null, 1, null, null, null, null, null, null, 0, null, null, 0, null, null, 1, null, null, null, null, null, null, null, null];
 		var G13 = [null, null, null, 1, null, null, null, null, null, null, null, 0, null, null, null, null, 0, 0, null, null, null, null, 1, null, 1, null, null, null, null, null, null, 0, null, 0, null, 0];
-		//var GT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36];
+		var GNull = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,];
 		var Grid = [];
 		var GridSize = 6;
 
@@ -36,28 +36,45 @@
                 GridCol = []; // clear this array ready for the next row
             }
             document.getElementById('arrayView2D').value = arr2D;
-			DisplayGrid(Grid);
+			DisplayGrid();
 		}
-		function DisplayGrid(G2D) {
+		function DisplayGrid() {
 			for (let j=0; j < GridSize; j++) {
 				for (let i=0; i < GridSize; i++) {
-					document.getElementById('B'+(i+1)+(j+1)).value = G2D[j][i];
+					document.getElementById('B'+(i+1)+(j+1)).value = Grid[j][i];
 				}
 			}
         }
+		
+		function UpdateGrid() {
+			let GridCol = [];
+			Grid = [];
+			let Cell = null;
+			for (let j = 0; j < GridSize; j++) { 
+                for (let i = 0; i < GridSize; i++) { 
+					Cell = document.getElementById('B'+(i+1)+(j+1)).value;
+					if (Cell == '') {
+						Cell = null;
+					}
+                    GridCol.push(Cell); 
+                }
+				Grid.push(GridCol); 
+				GridCol = []; 
+            }
+		}
 		
 		function BinaryPuzzleSolver() {
             let i = 0;
 			Solved = false;
 			while (Solved == false && i < 8) {
-				Solved = SolvePuzzle(Grid);
+				Solved = SolvePuzzle();
 				i++;
 			}
 			if (i == 8 && Solved == false) {
 				window.alert('Main "BinaryPuzzleSolver" - Could not solve puzzle.');
 			}
         }
-        function SolvePuzzle(G2D) {
+        function SolvePuzzle() {
 			SolveNumberPairs();
 			SolveNumberTrios();
 			if (CompleteRowsCols()) {
@@ -84,7 +101,7 @@
 					}
 				}
 			}
-			DisplayGrid(Grid);
+			DisplayGrid();
         }
 		function SolveColPairs() {
 			for (let Col = 0; Col < GridSize; Col++) {
@@ -99,7 +116,7 @@
 					}
 				}
 			}
-			DisplayGrid(Grid);
+			DisplayGrid();
         }
         function SolveNumberTrios() {
             for (let Row = 0; Row < GridSize; Row++) {
@@ -116,7 +133,7 @@
 					}
 				}
 			}
-			DisplayGrid(Grid);
+			DisplayGrid();
         }
         function CompleteRowsCols() {
             let tot0 = 0;
@@ -167,7 +184,7 @@
 				tot0 = 0;
 				tot1 = 0;
 			}
-			DisplayGrid(Grid);
+			DisplayGrid();
 			document.getElementById('arrayViewCell').value = colComplete;
 			if (colComplete == GridSize) {
 				return true;
@@ -214,6 +231,7 @@
             <option value="G11">Game 11</option>
             <option value="G12">Game 12</option>
             <option value="G13">Game 13</option>
+			<option value="GNull">Empty</option>
         </select>
 		<br />
 		<input type="button" value="Solve repeat" onClick="BinaryPuzzleSolver()" />&nbsp;&nbsp;
@@ -273,6 +291,7 @@
 				<td><input id="B66" type="text" class="gameboard" /></td>
 			</tr>
 		</table>
+		<input type="button" value="Update Grid" onClick="UpdateGrid()" /><br />
         <br />
 		View of the 2D array:<br />
         <textarea id="arrayView2D" cols="30" rows="7"></textarea><br />
