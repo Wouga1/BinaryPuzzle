@@ -36,7 +36,6 @@
                 GridCol = []; // clear this array ready for the next row
             }
             document.getElementById('arrayView2D').value = arr2D;
-            document.getElementById('arrayViewCell').value = Grid[4][3]; //Row 5, Column 4
 			DisplayGrid(Grid);
 		}
 		function DisplayGrid(G2D) {
@@ -50,10 +49,12 @@
 		function BinaryPuzzleSolver() {
             let i = 0;
 			Solved = false;
-			while (i < 3) {
-				//SolvePuzzle(); //This needs a parameter to work
-				window.alert('SolvePuzzle call number ' + i + '.');
+			while (Solved == false && i < 8) {
+				Solved = SolvePuzzle(Grid);
 				i++;
+			}
+			if (i == 8 && Solved == false) {
+				window.alert('Main "BinaryPuzzleSolver" - Could not solve puzzle.');
 			}
         }
         function SolvePuzzle(G2D) {
