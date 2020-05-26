@@ -23,9 +23,9 @@
 		var GridSize = 6;
 
         function LoadGrid() {      
-			var G = eval(document.getElementById("cboPuzNo").value);
-			var GridCol = [];
-			var arr2D = "";
+			let G = eval(document.getElementById("cboPuzNo").value);
+			let GridCol = [];
+			let arr2D = "";
 			Grid = [];
 			
 			for (let j = 0; j < GridSize; j++) { //Row loop - like the "y" coordinates
@@ -186,7 +186,7 @@
 				tot1 = 0;
 			}
 			DisplayGrid();
-			document.getElementById('arrayViewCell').value = colComplete;
+			document.getElementById('completeCols').value = colComplete;
 			if (colComplete == GridSize) {
 				return true;
 			}
@@ -300,7 +300,7 @@
         <textarea id="arrayView2D" cols="30" rows="7"></textarea><br />
         <br />
         View the number of complete columns:<br />
-        <textarea id="arrayViewCell" cols="30" rows="2"></textarea>
+        <textarea id="completeCols" cols="30" rows="2"></textarea>
         <br />
     </form>
 </body>
